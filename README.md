@@ -1,15 +1,15 @@
 
-# Lists Lab
+# UI Testing Lists Lab 
 
 ### Introduction
 
-Ok, so now that we have gotten a sense of how to read from a list and alter a list in Python, let's put this knowledge to practice. 
+Ok, so now that we have a sense of how to read from a list and alter a list in Python, let's put this knowledge to use. 
 
 ### Objectives
 
 * Practice reading one and multiple elements from lists
 * Practice altering data in lists
-* Practice add elements and removing elements from lists
+* Practice adding elements and removing elements from lists
 
 ### Our initial data structure 
 
@@ -20,9 +20,7 @@ In the previous lesson, we had a list of top travel cities.
 top_travel_cities = ['Solta', 'Greenville', 'Buenos Aires', 'Los Cabos', 'Walla Walla Valley', 'Marakesh', 'Albuquerque', 'Archipelago Sea', 'Iguazu Falls', 'Salina Island', 'Toronto', 'Pyeongchang']
 ```
 
-> Remember to press shift enter to run each gray block of code.
-
-In this lesson we can work with a list of each associated countries for each of those travel cities.
+> Remember to press shift+enter to run each gray block of code (including the one above).  Otherwise, the variables will not be defined.
 
 
 ```python
@@ -40,11 +38,26 @@ countries = ['Croatia',
  'South Korea']
 ```
 
+> Run the code in the cell above by pressing shift + enter.
+
 Ok, so the list of countries associated with each city has been assigned to the variable `countries`.  Now we will work with reading and manipulating this list.
 
 ### Accessing elements from lists
 
-First, access the third to last element from `countries` and set it equal to the variable `italy`.
+For the tests in this lab to work, please run the following two cells.
+
+
+```python
+pip install ipython_unittest
+```
+
+
+```python
+%load_ext ipython_unittest
+```
+
+First, set the variable `italy` to be equal to the third to last element from `countries`.  
+>**Note:** If you see an **error** stating that `countries` is undefined, it means you must press shift+enter in the second gray box where `countries` variable is assigned.
 
 
 ```python
@@ -52,11 +65,19 @@ italy = None # 'Italy'
 italy
 ```
 
-> We assign the varible `italy` equal to `None`, but you should change the word `None` to code that uses the `countries` list to assign `italy` to `'Italy'`.
+> We assign the varible `italy` equal to `None`, but you should change the word `None` to code that uses the `countries` list to assign `italy` to `'Italy'`.  We wrote the variable `italy` a second time, so that you can see what it equals when you run the code block.  Currently, nothing is displayed below as it equals `None`, but when it's correct it will match the string which is commented out, `'Italy'`.
 
 
 ```python
 italy # 'Italy'
+```
+
+
+```python
+%%unittest_testcase
+
+def test_italy(self):
+    self.assertEqual(italy, 'Italy')
 ```
 
 Now access the fourth element and set it equal to the variable `mexico`.
@@ -67,12 +88,28 @@ mexico = None
 mexico
 ```
 
+
+```python
+%%unittest_testcase
+
+def test_mexico(self):
+    self.assertEqual(mexico, 'Mexico')
+```
+
 Notice that the second through fifth elements are all in a row and all in the Western Hemisphere.  Assign that subset of elements to a variable called `kindof_neighbors`.
 
 
 ```python
 kindof_neighbors = None
 kindof_neighbors
+```
+
+
+```python
+%%unittest_testcase
+
+def test_kindof_neighbors(self):
+    self.assertEqual(kindof_neighbors, ['USA', 'Argentina', 'Mexico', 'USA'])
 ```
 
 ### Changing Elements
@@ -100,6 +137,14 @@ countries
 # 'Argentina', 'Italy',  'Canada', 'South Korea',  'Malta',  'Thailand']
 ```
 
+
+```python
+%%unittest_testcase
+
+def test_countries(self):
+    self.assertEqual(countries, ['Croatia', 'USA', 'Argentina', 'Mexico', 'USA', 'Morocco', 'New Mexico', 'Finland', 'Argentina', 'Italy',  'Canada', 'South Korea',  'Malta',  'Thailand'])
+```
+
 You may have noticed that "New Mexico" is included in our list of countries.  That doesn't seem right.  Let's change 'New Mexico' to 'USA'.
 
 
@@ -112,6 +157,14 @@ None # add code here
 countries 
 # ['Croatia', 'USA', 'Argentina', 'Mexico', 'USA', 'Morocco', 'USA', 'Finland', 
 # 'Argentina', 'Italy',  'Canada', 'South Korea',  'Malta',  'Thailand']
+```
+
+
+```python
+%%unittest_testcase
+
+def test_countries_with_usa(self):
+    self.assertEqual(countries, ['Croatia', 'USA', 'Argentina', 'Mexico', 'USA', 'Morocco', 'USA', 'Finland', 'Argentina', 'Italy',  'Canada', 'South Korea',  'Malta',  'Thailand'])
 ```
 
 Finally, let's remove Thailand from the list.  No good reason, we're acting on whimsy.
@@ -137,6 +190,14 @@ countries
 # ['Croatia', 'USA', 'Argentina', 'Mexico', 'USA', 'Morocco', 'USA', 'Finland',  'Argentina', 'Italy', 'Canada', 'South Korea',  'Malta']
 ```
 
+
+```python
+%%unittest_testcase
+
+def test_countries_with_usa(self):
+    self.assertEqual(countries, ['Croatia', 'USA', 'Argentina', 'Mexico', 'USA', 'Morocco', 'USA', 'Finland', 'Argentina', 'Italy',  'Canada', 'South Korea',  'Malta'])
+```
+
 ### Exploring Lists with Methods
 
 Ok, now we notice that some countries are mentioned more than once.  Let's see how many repeat countries are on this list.  
@@ -154,6 +215,14 @@ unique_countries # ['USA',  'South Korea',  'Morocco',  'Finland',  'Italy',
 # 'Mexico',  'Argentina', 'Malta', 'Croatia', 'New Mexico', 'Canada']
 ```
 
+
+```python
+%%unittest_testcase
+
+def test_unique_countries(self):
+    self.assertEqual(unique_countries, ['USA',  'South Korea',  'Morocco',  'Finland',  'Italy', 'Mexico',  'Argentina', 'Malta', 'Croatia', 'New Mexico', 'Canada'])
+```
+
 Now the number of repeat countries should be the number of countries minus the number of unique countries.  So use the `len` function on both `unique_countries` and `countries` to calculate this and assign the result to the variable `num_of_repeats`.
 
 
@@ -162,6 +231,14 @@ num_of_repeats = None
 num_of_repeats # 3
 ```
 
+
+```python
+%%unittest_testcase
+
+def test_num_of_repeats(self):
+    self.assertEqual(num_of_repeats, 3)
+```
+
 ### Summary
 
-In this section we saw how to get our data from the outside world and into Python.  The purpose isn't to understand all of this code right now, but rather to see how easily we can start working with outside data.  As we become better at Python, the usefulness of taking data and operating on it in code rather than a spreadsheet will become more apparent.  But that doesn't mean we can't get step outside of Python sandbox now.  It's not too difficult to take some data we may already have, and begin to use it with Python.  In the next section, we'll use a lab to get data from excel and work with lists.
+In this lesson, we had some practice with working with lists in Python.  We saw how to add and remove elements from a list, as well as select specific elements.  Finally, we saw how to use a different data structure to calculate the number unique elements in the list.
